@@ -1,6 +1,9 @@
 package com.example.basejwt.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +12,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
+@EntityListeners(AuditingEntityListener.class)
 public class User extends BaseEntity {
   private String username;
   private String password;
