@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,11 +22,9 @@ public abstract class BaseEntity implements Serializable {
   private Long id;
 
   @CreatedDate
-  @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
 
   @LastModifiedDate
-  @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
   @PreUpdate

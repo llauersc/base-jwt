@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.basejwt.entity.User;
 import com.example.basejwt.repository.UserRepository;
@@ -21,19 +21,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BaseJwtApplication {
 
-	@Autowired
-	UserRepository userRepository;
+	final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void UserInit() {
 		List<User> users = Stream.of(
-					new User("khmerside", "123", "khmerside@mail.com"),
-					new User("chumkiri", "111", "chumkiri@mail.com")
-				).collect(Collectors.toList());
-		
+				new User("khmerside", passwordEncoder.encode("123"), "khmerside@mail.com"),
+				new User("chumkiri", passwordEncoder.encode("111"), "chumkiri@mail.com"))
+				.collect(Collectors.toList());
+
 		userRepository.saveAll(users);
 	}
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(BaseJwtApplication.class, args);
 	}
